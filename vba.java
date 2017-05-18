@@ -349,3 +349,7 @@
 		oRequest.Send "var1=123&anothervar=test"
 		MsgBox oRequest.ResponseText
 }
+14.Tip & tricks: {
+	- Edit VBA Code: Alt + F11.
+	- Choose Macro: Alt + F8
+}
