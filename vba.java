@@ -353,3 +353,65 @@
 	- Edit VBA Code: Alt + F11.
 	- Choose Macro: Alt + F8
 }
+15.Change Cell in Function: {
+	15.1.Change a Different Cell using an Excel VBA Function: {
+		Function CopyCellContents(copyTo As Range)
+			Evaluate "CopyOver(" & Range("A1").Address(False, False) _
+							& "," & copyTo.Address(False, False) & ")"
+		End Function
+		
+		Private Sub CopyOver(copyFrom As Range, copyTo As Range)
+			copyTo.Value = copyFrom.Value
+		End Sub
+		
+		http://wellsr.com/vba/2016/excel/how-to-change-another-cell-with-a-vba-function-udf/
+	}
+	15.2.Update Another Cell using VBA UDF: {
+		Function CopyCellContents(CopyFrom As Range, CopyTo As Range)
+			CopyFrom.Parent.Evaluate "CopyOver(" & CopyFrom.Address(False, False) _
+					& "," CopyTo.Address(False, False) & ")"
+		End Function
+		
+		Private Sub CopyOver(CopyFrom As Range, CopyTo As Range)
+			CopyTo.Value = CopyFrom.Value
+		End Sub
+	}
+	15.3.Change Cell Next to the Formula Cell: {
+		Function ChangeAdjacentCell()
+			Evaluate "Adjacent(" & Application.Caller.Offset(0, -1).Address(False, False) & ")"
+		End Function
+		
+		Private Sub Adjacent(CellToChange As Range)
+			CellToChange = "Hello!"
+		End Sub
+	}
+	15.4.Prevent User from Typing into Any Cell: {
+		Function MeanFunction() 
+			Application.Volatile
+			If Application.Caller.Address <> Selection.Address Then
+				Evaluate "NotNice(" & Selection.Address(False, False) & ")"
+			End If
+			MeanFunction = ""
+		End Function
+		
+		Private Sub NotNice(rng1 A Range)
+			rand1 = CInt(Application.WorksheetFunction.RandBetween(0, 4))
+			Select Case rand1
+				Case 0
+					rng1.Value = "It looks like you're struggling..."
+				Case 1
+					rng1.Value = "You can't do that!"
+				Case 2
+					rng1.Value = "Not happening."
+				Case 3
+					rng1.Value = "What are you trying to do?"
+				Case 4
+					rng1.Value = "Why won't it work?"
+			End Select
+		End Sub
+	}
+	
+}
+
+http://www.excel-easy.com/vba/userform.html
+https://www.rondebruin.nl/win/s8/win003.htm
