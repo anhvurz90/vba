@@ -412,6 +412,11 @@
 	}
 	
 }
+16.Excel Menu: {
+	- Creating Custom Menu Items in Excel:
+	
+	https://msdn.microsoft.com/en-us/library/office/aa168343(v=office.11).aspx
+}
 
 http://www.excel-easy.com/vba/userform.html
 https://www.rondebruin.nl/win/s8/win003.htm
