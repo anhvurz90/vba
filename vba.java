@@ -413,10 +413,44 @@
 	
 }
 16.Excel Menu: {
-	- Creating Custom Menu Items in Excel:
+	16.1.Creating Custom Menu Items in Excel: {
+		http://www.vbaexpress.com/kb/getarticle.php?kb_id=427
+		
+		Private Sub Workbook_Open()
+			Dim cmbBar As CommandBar
+			Dim cmbControl As CommandBarControl
+		
+			Set cmbBar = Application.CommandBars("Worksheet Menu Bar")
+			Set cmbControl = cmbBar.Controls.Add(Type:= msoControlPopup, temporary:= True) 'adds a menu item to the Menu Bar
+			With cmbControl
+				.Caption = "&My Macros" 'names the menu item
+				With .Controls.Add(Type:=msoControlButton) 'adds a dropdown button th the menu item
+					.Caption = "My Macro No 1" 'adds a description to the menu item
+					.OnAction = "RunMyMacro1" 'runs the specified macro
+					.FaceId = 1098 'assigns an icon to the dropdown
+				End With
+				With .Controls.Add(Type:=msoControlButton)
+					.Caption = "My Macro No2"
+					.OnAction = "RunMyMacro2"
+					.FaceId = 108
+				End With
+				With .Controls.Add(Type:=msoControlButton)
+					.Caption = "My Macro No3"
+					.OnAction = "RunMyMacro3"
+					.FaceId = 21
+				End with
+			End With
+		End Sub
+		
+		private Sub Workbook_BeforeClose(Cancel As Boolean)
+			On Error Resume Next 'in case the menu item has already been deleted
+			Application.CommandBars("Worksheet Menu Bar").Controls("My Macros").Delete 'delete the menu item
+		End Sub
+	}
 	
 	https://msdn.microsoft.com/en-us/library/office/aa168343(v=office.11).aspx
 }
 
 http://www.excel-easy.com/vba/userform.html
 https://www.rondebruin.nl/win/s8/win003.htm
+
